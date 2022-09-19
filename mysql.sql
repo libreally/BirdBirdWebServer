@@ -1271,4 +1271,13 @@ FROM emp e,dept d,(SELECT AVG(sal) avg_sal, dept.loc,dept_id
 WHERE  e.sal>a.avg_sal
 AND d.loc = a.loc
 AND e.dept_id=d.id;
-
+#改写join
+SELECT e.name,e.sal,a.avg_sal,d.loc
+FROM dept d
+join emp e on d.id = e.dept_id
+join (SELECT AVG(sal) avg_sal, dept.loc,dept_id
+FROM emp,dept
+WHERE emp.dept_id = dept.id
+GROUP BY dept.loc) a
+on d.loc = a.loc
+WHERE e.sal>a.avg_sal;
