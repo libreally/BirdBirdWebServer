@@ -1160,3 +1160,115 @@ FROM emp
 WHERE sal BETWEEN 1000 AND 3000
 GROUP BY dept_id
 HAVING AVG(sal)>2000;
+
+# 内连接JOIN子句
+# 内连接与关联查询效果一致，区别是单独书写关联关系(关联条件与过滤条件分开)
+# JOIN..ON..子句可以写多个，当连接多张表时使用。
+#
+# SELECT 字段
+# FROM A表 a
+# JOIN B表 b
+# ON a.xx=b.xx(连接条件)
+# JOIN C表 c
+# ON c.xxx=b.xxx或c.xxx=a.xxx
+# JOIN .... ON ...
+# 查看每个员工信息以及其对应的部分信息
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e
+JOIN dept d
+ON d.id = e.dept_id;
+
+# 在内连接中，过滤条件还是写在WHERE子句中
+# 查看工资高于1300的员工信息和所在的部门信息
+# SELECT 字段
+# FROM 表1
+# JOIN 表2
+# ON 连接条件
+# WHERE 过滤条件
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e,dept d
+WHERE e.dept_id=d.id;
+#查看工资高于1300的员工的信息和所属部门
+SELECT emp.name,emp.job,dept.name,dept.loc
+FROM emp,dept
+WHERE emp.dept_id=dept.id AND emp.sal>1300;
+
+SELECT *
+FROM emp
+JOIN dept d on d.id = emp.dept_id
+WHERE sal>1300;
+
+# 如果需要在结果集中列出不满足连接条件的记录时我们需要使用外连接
+# 外连接有:
+# 左外连接:以LEFT JOIN左侧表作为主表，其中的记录都要展示，不满足连接条件时来自右侧表中记录
+#         的字段值全部为NULL
+# 右外连接:以RIGHT JOIN右侧表作为主表，其中的记录都要展示，不满足连接条件时来自左侧表中记录
+#         的字段值全部为NULL
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e
+         LEFT JOIN dept d
+                   ON e.dept_id = d.id;
+
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e
+         RIGHT JOIN dept d
+                    ON e.dept_id = d.id;
+# 全连接效果，结果集包含满足连接条件的和左连接，右连接的所有数据
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e
+        LEFT JOIN dept d
+              ON d.id = e.dept_id
+UNION
+SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+FROM emp e
+         RIGHT JOIN dept d
+                   ON d.id = e.dept_id;
+
+
+CREATE TABLE emp_dept_sal
+AS
+SELECT MAX(sal) max_sal,MIN(sal) min_sal,AVG(sal) avg_sal,SUM(sal) sum_sal,dept_id
+FROM emp
+GROUP BY dept_id;
+CREATE TABLE emp_annual_salary
+AS
+SELECT name,sal salary,sal*12 a_salary,dept_id
+FROM emp;
+# 查看比本部门平均工资高的员工信息
+/*
+1.先查询各部门平均薪资
+select avg(sal) avg_sal from emp group by dept_id;
+2.SELECT e.name,e.sal,a.avg_sal,a.dept_id
+FROM emp e,(select avg(sal) avg_sal from emp group by dept_id) a
+WHERE e.dept_id=a.dept_id
+AND e.sal>a.avg_sal;
+*/
+SELECT e.name,e.sal,a.avg_sal,a.dept_id
+FROM emp e,emp_dept_sal a
+WHERE e.dept_id=a.dept_id
+AND e.sal>a.avg_sal;
+
+SELECT e.name,e.sal,e.dept_id,a.avg_sal
+FROM emp e,(select avg(sal) avg_sal,dept_id from emp group by dept_id) a
+WHERE e.dept_id=a.dept_id
+AND e.sal>a.avg_sal;
+# 查看比所在地区平均工资高的员工信息
+# 第一步查看每个员工的工资以及所在地区
+SELECT e.sal,d.loc
+FROM dept d,emp e
+WHERE e.dept_id=d.id;
+# 第二步查看每个地区的平均工资
+SELECT AVG(sal) avg_sal,d.loc,e.dept_id
+FROM emp e,dept d
+WHERE e.dept_id=d.id
+GROUP BY d.loc;
+# 第三步关联表 emp-dept-第二部的整体结果
+SELECT e.name,e.sal,a.avg_sal,d.loc
+FROM emp e,dept d,(SELECT AVG(sal) avg_sal, dept.loc,dept_id
+            FROM emp,dept
+            WHERE emp.dept_id = dept.id
+            GROUP BY dept.loc) a
+WHERE  e.sal>a.avg_sal
+AND d.loc = a.loc
+AND e.dept_id=d.id;
+
