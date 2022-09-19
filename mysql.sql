@@ -1271,4 +1271,64 @@ FROM emp e,dept d,(SELECT AVG(sal) avg_sal, dept.loc,dept_id
 WHERE  e.sal>a.avg_sal
 AND d.loc = a.loc
 AND e.dept_id=d.id;
+# 改写join
+SELECT e.name,e.sal,a.avg_sal,d.loc
+FROM emp e
+join dept d on d.id = e.dept_id
+join (SELECT AVG(sal) avg_sal, dept.loc,dept_id
+FROM emp,dept
+WHERE emp.dept_id = dept.id
+GROUP BY dept.loc) a
+on d.loc = a.loc
+WHERE e.sal>a.avg_sal;
+#每个地区最高工资是谁
+# 第一步 查询每个地区最高工资
+SELECT MAX(sal),d.loc
+FROM emp e,dept d
+WHERE d.id=e.dept_id
+GROUP BY d.loc;
+# 第二步
+SELECT e.name,e.sal,e.dept_id,a.loc,a.max_sal
+FROM emp e ,(SELECT MAX(sal) max_sal,d.loc
+             FROM emp e,dept d
+             WHERE d.id=e.dept_id
+             GROUP BY d.loc) a
+WHERE e.sal=a.max_sal;
+# 自链接
 
+# 查看每个员工的领导是谁？
+SELECT e.name,m.name
+FROM emp e,emp m
+WHERE e.manager=m.id;
+
+SELECT e.name,m.name
+FROM emp e
+join emp m
+on e.manager=m.id;
+
+#刘备的下属
+SELECT e.name
+FROM emp e
+         join emp m
+              on e.manager=m.id
+where m.name='刘备';
+
+
+#谁的工资比孙悟空的领导的工资高
+SELECT e.name ,e.sal
+FROM emp e
+join (SELECT m.name,m.sal
+      FROM emp e
+               join emp m
+                    on e.manager=m.id
+      WHERE e.name='孙悟空') m
+WHERE e.sal>m.sal;
+SELECT name,sal
+FROM emp
+WHERE sal>(
+    SELECT sal
+    FROM emp e
+    JOIN emp m
+    ON e.manager=m.id
+    WHERE e.name='孙悟空'
+    );

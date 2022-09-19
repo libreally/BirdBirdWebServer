@@ -29,6 +29,7 @@
         <module>V17</module>
         <module>V18</module>
         <module>V19</module>
+        <module>JDBCDemo</module>
     </modules>
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -42,6 +43,16 @@
             <groupId>com.sun.activation</groupId>
             <artifactId>javax.activation</artifactId>
             <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
         </dependency>
     </dependencies>
 </project>
