@@ -13,25 +13,23 @@ public class Test5 {
                 Connection connection = DBUtil.getConnection();
         ) {
             Statement statement = connection.createStatement();
-            String sql = "SELECT id,name ,age,class_id FROM empdb.student WHERE age=6";
-            /*
-            专门执行SQL的语句方法为ResultSet executeQuery(sql)
-            该方法返回一个ResultSet对象，这个对象封装了查询出来的结果集
-            * */
+            String sql = "select s.id,s.name ,s.age,s.class_id,c.id,c.name\n" +
+                    "FROM empdb.student s,empdb.classroom c\n" +
+                    "WHERE s.class_id=c.id\n" +
+                    "AND c.name='3年纪2班'";
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int class_id = resultSet.getInt(4);
-                //根据字段名获取
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 int age = resultSet.getInt("age");
                 int classId = resultSet.getInt("class_id");
-                System.out.println(id + "," + name + "," + age + "," + class_id);
+                String classname=resultSet.getString("c.name");
+                System.out.println(id + "," + name + "," + age + "," + classId+","+classId);
             }
             resultSet.close();
-        }catch (Exception e)
-        {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
