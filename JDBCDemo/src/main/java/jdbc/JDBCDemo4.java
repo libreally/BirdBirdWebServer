@@ -3,7 +3,6 @@ package jdbc;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 /**
  * 预编译SQL语句是将在sql中会变化的语句的值用？进行占位
@@ -14,7 +13,7 @@ public class JDBCDemo4 {
             Scanner scanner = new Scanner(System.in);
             System.out.println("输入员工信息：");
             String name = scanner.nextLine();
-            Statement statement= connection.createStatement();
+//            Statement statement= connection.createStatement();
             String sql =" SELECT id,name,sal,dept_id FROM empdb.emp WHERE name=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1,"孙悟空");//第一个问号设置为孙悟空
