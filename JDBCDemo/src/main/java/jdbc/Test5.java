@@ -13,7 +13,7 @@ public class Test5 {
                 Connection connection = DBUtil.getConnection();
         ) {
             Statement statement = connection.createStatement();
-            String sql = "select s.id,s.name ,s.age,s.class_id,c.id,c.name\n" +
+            String sql = "select s.id,s.name ,s.age,s.class_id,c.id,c.name \n" +
                     "FROM empdb.student s,empdb.classroom c\n" +
                     "WHERE s.class_id=c.id\n" +
                     "AND c.name='3年纪2班'";
@@ -25,7 +25,7 @@ public class Test5 {
                 int age = resultSet.getInt("age");
                 int classId = resultSet.getInt("class_id");
                 String classname=resultSet.getString("c.name");
-                System.out.println(id + "," + name + "," + age + "," + classId+","+classId);
+                System.out.println(id + "," + name + "," + age + "," + classId+","+classname);
             }
             resultSet.close();
 
