@@ -155,7 +155,6 @@ public class UserController {
                 return;
             }
 
-
             /*
                 INSERT INTO userinfo (username,password,nickname,age)
                 VALUES('xx','xx','xx',2)

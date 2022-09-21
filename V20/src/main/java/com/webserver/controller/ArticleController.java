@@ -26,7 +26,7 @@ public class ArticleController {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, author);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 System.out.println(id);
 
@@ -39,13 +39,17 @@ public class ArticleController {
                 int i = ps.executeUpdate();
                 if (i > 0) {
                     System.out.println("success！");
+                    response.sendRedirect("/writeArticle_success.html");
+                    return;
                 } else {
                     System.out.println("over!");
+                    response.sendRedirect("/writeArticle_fail.html");
+                    return;
                 }
-                response.sendRedirect("/writeArticle_success.html");
-                return;
+            }else{
+                response.sendRedirect("/author_have.html");
             }
-            response.sendRedirect("/writeArticle_fail.html");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
