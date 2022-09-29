@@ -839,7 +839,7 @@ WHERE name LIKE '%精%';
 
 
 SELECT *
-FROM dept ;
+FROM dept;
 /*关联查询 查询结果集中的数据来自多张表，而表与表中数据之间的对应关系就是关联关系
 
 两张表就可以产生关联关系了，关联关系分为三类:
@@ -896,44 +896,47 @@ WHERE emp.dept_id = dept.id
 GROUP BY dept.loc;
 
 # 1. 查询工资大于等于3000的员工姓名和工资
-SELECT name,sal
+SELECT name, sal
 FROM emp
-WHERE sal>=3000;
+WHERE sal >= 3000;
 # 2. 查询1号部门的员工姓名和工作
-SELECT name,job
+SELECT name, job
 FROM emp
-WHERE dept_id=1;
+WHERE dept_id = 1;
 # 3. 查询不是程序员的员工姓名和工作(两种写法)
-SELECT name,job
+SELECT name, job
 FROM emp
-WHERE job<>'程序员';
-SELECT name,job
+WHERE job <> '程序员';
+SELECT name, job
 FROM emp
 WHERE job NOT IN ('程序员');
 # 4. 查询奖金等于300的员工姓名,工资和工作
-SELECT name,sal,job
+SELECT name, sal, job
 FROM emp
-WHERE comm=300;
+WHERE comm = 300;
 # 5. 查询1号部门工资大于2000的员工信息
 SELECT *
 FROM emp
-WHERE dept_id=1 AND sal>2000;
+WHERE dept_id = 1
+  AND sal > 2000;
 # 6. 查询3号部门或工资等于5000的员工信息
 SELECT *
 FROM emp
-WHERE dept_id=3 OR sal=5000;
+WHERE dept_id = 3
+   OR sal = 5000;
 # 7. 查询出CEO和项目经理的名字
 SELECT name
 FROM emp
-WHERE job='CEO' OR job='项目经理';
+WHERE job = 'CEO'
+   OR job = '项目经理';
 # 8. 查询工资为3000,1500和5000的员工信息
 SELECT *
 FROM emp
-WHERE sal IN (3000,1500,5000);
+WHERE sal IN (3000, 1500, 5000);
 # 9. 查询工资不等于3000,1500和5000的员工信息
 SELECT *
 FROM emp
-WHERE sal NOT IN (3000,1500,5000);
+WHERE sal NOT IN (3000, 1500, 5000);
 # 10. 查询工资在1000到2000之间的员工信息
 SELECT *
 FROM emp
@@ -941,15 +944,16 @@ WHERE sal BETWEEN 1000 AND 2000;
 # 11. 查询工资在1000到2000以外的员工信息
 SELECT *
 FROM emp
-WHERE sal<=1000 OR sal>=2000;
+WHERE sal <= 1000
+   OR sal >= 2000;
 # 12. 查询有领导的员工姓名和领导id
-SELECT name,manager
+SELECT name, manager
 FROM emp
-WHERE manager IS NOT NULL ;
+WHERE manager IS NOT NULL;
 # 13. 查询没有领导的员工姓名和领导id
-SELECT name,manager
+SELECT name, manager
 FROM emp
-WHERE manager IS NULL ;
+WHERE manager IS NULL;
 # 14. 查询员工表中出现了哪几种不同的工作
 SELECT job
 FROM emp
@@ -969,7 +973,7 @@ WHERE name LIKE '%精';
 # 18. 查询工作中包含销售的员工信息
 SELECT *
 FROM emp
-WHERE job='销售';
+WHERE job = '销售';
 # 19. 查询工作中第二个字是售的员工信息
 SELECT *
 FROM emp
@@ -977,50 +981,55 @@ WHERE job LIKE '_售%';
 # 20. 查询名字中包含僧的员工并且工资高于2000的员工信息
 SELECT *
 FROM emp
-WHERE name LIKE '%僧%' AND sal>2000;
+WHERE name LIKE '%僧%'
+  AND sal > 2000;
 # 21. 查询1号和2号部门中工作以市开头的员工信息
 SELECT *
 FROM emp
-WHERE dept_id IN (1,2) and job LIKE '市%';
+WHERE dept_id IN (1, 2)
+  and job LIKE '市%';
 # 22. 查询所有员工的姓名和工资 按照工资升序排序
-SELECT name,sal
+SELECT name, sal
 FROM emp
 ORDER BY sal;
 # 23. 查询所有员工的姓名和工资 按照工资降序排序
-SELECT name,sal
+SELECT name, sal
 FROM emp
-ORDER BY sal DESC ;
+ORDER BY sal DESC;
 # 24. 查询所有员工姓名 工资和部门id 按照部门id降序排序,如果部门id一致则按照工资升序排序
-SELECT name,sal,dept_id
+SELECT name, sal, dept_id
 FROM emp
 ORDER BY dept_id;
 # 25. 查询员工表中3号部门工资高于1500的员工信息
 SELECT *
 FROM emp
-WHERE dept_id=3 AND sal>1500;
+WHERE dept_id = 3
+  AND sal > 1500;
 # 26. 查询2号部门员工或者没有领导的员工信息
 SELECT *
 FROM emp
-WHERE dept_id=2 OR manager IS NULL ;
+WHERE dept_id = 2
+   OR manager IS NULL;
 # 27. 查询有领导的员工姓名,工资按照工资降序排序
-SELECT name,sal
+SELECT name, sal
 FROM emp
 WHERE manager IS NULL
-ORDER BY sal DESC ;
+ORDER BY sal DESC;
 # 28. 查询2号和3号部门的员工姓名和入职日期hiredate 按照入职日期降序排序
-SELECT name,hiredate
+SELECT name, hiredate
 FROM emp
-WHERE dept_id IN (1,2)
-ORDER BY hiredate DESC ;
+WHERE dept_id IN (1, 2)
+ORDER BY hiredate DESC;
 # 29. 查询名字中包含僧和包含精的员工姓名
 SELECT name
 FROM emp
-WHERE name LIKE '%僧%' OR name LIKE '%精%';
+WHERE name LIKE '%僧%'
+   OR name LIKE '%精%';
 # 30. 查询工资高于2000的工作有哪几种?
-SELECT job,sal
+SELECT job, sal
 FROM emp
-WHERE sal>2000
-ORDER BY job ;
+WHERE sal > 2000
+ORDER BY job;
 # 31. 查询工资最高的前三个员工
 SELECT *
 FROM emp
@@ -1037,58 +1046,60 @@ FROM emp
 ORDER BY id
 LIMIT 8,4;
 # 34. 查询3号部门工资最低的员工姓名和工资
-SELECT MIN(sal),name
+SELECT MIN(sal), name
 FROM emp
-WHERE dept_id=3;
+WHERE dept_id = 3;
 # 35. 查询工作不是人事的员工中工资降序第二页的3条数据
 SELECT *
 FROM emp
-WHERE job<>'人事'
+WHERE job <> '人事'
 ORDER BY sal DESC
 LIMIT 3,3;
 # 36. 查询没有领导的员工和3号部门的员工,工资降序取前三条
 SELECT *
 FROM emp
-WHERE dept_id=3 OR manager IS NULL
+WHERE dept_id = 3
+   OR manager IS NULL
 ORDER BY sal DESC
 LIMIT 0,3;
 # 37. 查询2号部门的最高工资
-SELECT MAX(sal),dept_id
+SELECT MAX(sal), dept_id
 FROM emp
-WHERE dept_id=2;
+WHERE dept_id = 2;
 # 40. 查询有领导的员工中工资在1000到2000之间的人数
 SELECT COUNT(*)
 FROM emp
 WHERE manager IS NOT NULL
-AND sal BETWEEN 1000 AND 2000;
+  AND sal BETWEEN 1000 AND 2000;
 # 41. 查询3号部门的工资总和
-SELECT SUM(sal),dept_id
+SELECT SUM(sal), dept_id
 FROM emp
-WHERE dept_id=3;
+WHERE dept_id = 3;
 # 42. 查询程序员和销售的总人数
 SELECT COUNT(*)
 FROM emp
-WHERE job IN ('程序员','销售');
+WHERE job IN ('程序员', '销售');
 # 43. 查询1号部门有领导的员工的平均工资
 SELECT AVG(sal)
 FROM emp
-WHERE dept_id=1 AND manager IS NOT NULL;
+WHERE dept_id = 1
+  AND manager IS NOT NULL;
 # 44. 查询1号部门的最低工资和最高工资
-SELECT MIN(sal),MAX(sal),dept_id
+SELECT MIN(sal), MAX(sal), dept_id
 FROM emp
-WHERE dept_id=1;
+WHERE dept_id = 1;
 # 45. 查询和销售相关的工作人数
 SELECT COUNT(job)
 FROM emp
-WHERE job='销售';
+WHERE job = '销售';
 # 46. 查询工资不是1500和3000的员工人数
 SELECT COUNT(sal)
 FROM emp
-WHERE sal NOT IN (1500,3000);
+WHERE sal NOT IN (1500, 3000);
 # 47. 查询1号部门出现了哪几种工作
 SELECT job
 FROM emp
-WHERE dept_id=1
+WHERE dept_id = 1
 GROUP BY job;
 # 48. 查询名字包含精的员工数量
 SELECT COUNT(*)
@@ -1097,69 +1108,69 @@ WHERE name LIKE '%精%';
 # 49. 查询和销售相关的工作一个月工资总和
 SELECT SUM(sal)
 FROM emp
-WHERE job='销售';
+WHERE job = '销售';
 # 50. 查询2号部门的最高工资和最低工资起别名
-SELECT MAX(sal) max_sal,MIN(sal) min_sal
+SELECT MAX(sal) max_sal, MIN(sal) min_sal
 FROM emp
-WHERE dept_id=2;
+WHERE dept_id = 2;
 # 51.查询每个部门的平均工资
-SELECT AVG(sal),dept_id
+SELECT AVG(sal), dept_id
 FROM emp
 GROUP BY dept_id;
 # 52. 查询每种工作的平均工资
-SELECT AVG(sal),job
+SELECT AVG(sal), job
 FROM emp
 GROUP BY job;
 # 53. 查询每个部门的最高工资
-SELECT MAX(sal),dept_id
+SELECT MAX(sal), dept_id
 FROM emp
 GROUP BY dept_id;
 # 54. 查询每种工作的最低工资
-SELECT MIN(sal),job
+SELECT MIN(sal), job
 FROM emp
 GROUP BY job;
 # 55. 查询每个部门工资高于2000的人数
-SELECT COUNT(sal),dept_id
+SELECT COUNT(sal), dept_id
 FROM emp
-WHERE sal>2000
+WHERE sal > 2000
 GROUP BY dept_id;
 # 56. 查询每个部门有领导的员工人数
-SELECT COUNT(manager),dept_id
+SELECT COUNT(manager), dept_id
 FROM emp
 WHERE manager IS NOT NULL
 GROUP BY dept_id;
 # 57. 查询1号部门每种工作的最低工资
-SELECT MIN(sal),job
+SELECT MIN(sal), job
 FROM emp
-WHERE dept_id=1
+WHERE dept_id = 1
 GROUP BY job;
 # 58. 查询平均工资最高的部门id和平均工资
-SELECT AVG(sal),dept_id
+SELECT AVG(sal), dept_id
 FROM emp
 GROUP BY dept_id
 ORDER BY AVG(sal) DESC
 LIMIT 0,1;
 # 59. 查询每个部门的平均工资,要求平均工资大于2000
-SELECT AVG(sal),dept_id
+SELECT AVG(sal), dept_id
 FROM emp
 GROUP BY dept_id
-HAVING AVG(sal)>2000;
+HAVING AVG(sal) > 2000;
 # 60. 查询每种工作的人数,只查询人数大于1的
-SELECT COUNT(job),job
+SELECT COUNT(job), job
 FROM emp
 GROUP BY job;
 # 61. 查询每个部门的工资总和,只查询有领导的员工, 并且要求工资总和大于5400.
-SELECT SUM(sal),dept_id
+SELECT SUM(sal), dept_id
 FROM emp
 WHERE manager IS NOT NULL
 GROUP BY dept_id
-HAVING SUM(sal)>5400;
+HAVING SUM(sal) > 5400;
 # 62. 查询每个部门的平均工资, 只查询工资在1000到3000之间的,并且过滤掉平均工资低于2000的
-SELECT AVG(sal),dept_id
+SELECT AVG(sal), dept_id
 FROM emp
 WHERE sal BETWEEN 1000 AND 3000
 GROUP BY dept_id
-HAVING AVG(sal)>2000;
+HAVING AVG(sal) > 2000;
 
 # 内连接JOIN子句
 # 内连接与关联查询效果一致，区别是单独书写关联关系(关联条件与过滤条件分开)
@@ -1173,10 +1184,10 @@ HAVING AVG(sal)>2000;
 # ON c.xxx=b.xxx或c.xxx=a.xxx
 # JOIN .... ON ...
 # 查看每个员工信息以及其对应的部分信息
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
 FROM emp e
-JOIN dept d
-ON d.id = e.dept_id;
+         JOIN dept d
+              ON d.id = e.dept_id;
 
 # 在内连接中，过滤条件还是写在WHERE子句中
 # 查看工资高于1300的员工信息和所在的部门信息
@@ -1185,18 +1196,21 @@ ON d.id = e.dept_id;
 # JOIN 表2
 # ON 连接条件
 # WHERE 过滤条件
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
-FROM emp e,dept d
-WHERE e.dept_id=d.id;
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
+FROM emp e,
+     dept d
+WHERE e.dept_id = d.id;
 #查看工资高于1300的员工的信息和所属部门
-SELECT emp.name,emp.job,dept.name,dept.loc
-FROM emp,dept
-WHERE emp.dept_id=dept.id AND emp.sal>1300;
+SELECT emp.name, emp.job, dept.name, dept.loc
+FROM emp,
+     dept
+WHERE emp.dept_id = dept.id
+  AND emp.sal > 1300;
 
 SELECT *
 FROM emp
-JOIN dept d on d.id = emp.dept_id
-WHERE sal>1300;
+         JOIN dept d on d.id = emp.dept_id
+WHERE sal > 1300;
 
 # 如果需要在结果集中列出不满足连接条件的记录时我们需要使用外连接
 # 外连接有:
@@ -1204,35 +1218,35 @@ WHERE sal>1300;
 #         的字段值全部为NULL
 # 右外连接:以RIGHT JOIN右侧表作为主表，其中的记录都要展示，不满足连接条件时来自左侧表中记录
 #         的字段值全部为NULL
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
 FROM emp e
          LEFT JOIN dept d
                    ON e.dept_id = d.id;
 
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
 FROM emp e
          RIGHT JOIN dept d
                     ON e.dept_id = d.id;
 # 全连接效果，结果集包含满足连接条件的和左连接，右连接的所有数据
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
 FROM emp e
-        LEFT JOIN dept d
-              ON d.id = e.dept_id
+         LEFT JOIN dept d
+                   ON d.id = e.dept_id
 UNION
-SELECT e.name,e.job,e.manager,e.sal,d.name,d.loc
+SELECT e.name, e.job, e.manager, e.sal, d.name, d.loc
 FROM emp e
          RIGHT JOIN dept d
-                   ON d.id = e.dept_id;
+                    ON d.id = e.dept_id;
 
 
 CREATE TABLE emp_dept_sal
 AS
-SELECT MAX(sal) max_sal,MIN(sal) min_sal,AVG(sal) avg_sal,SUM(sal) sum_sal,dept_id
+SELECT MAX(sal) max_sal, MIN(sal) min_sal, AVG(sal) avg_sal, SUM(sal) sum_sal, dept_id
 FROM emp
 GROUP BY dept_id;
 CREATE TABLE emp_annual_salary
 AS
-SELECT name,sal salary,sal*12 a_salary,dept_id
+SELECT name, sal salary, sal * 12 a_salary, dept_id
 FROM emp;
 # 查看比本部门平均工资高的员工信息
 /*
@@ -1243,92 +1257,226 @@ FROM emp e,(select avg(sal) avg_sal from emp group by dept_id) a
 WHERE e.dept_id=a.dept_id
 AND e.sal>a.avg_sal;
 */
-SELECT e.name,e.sal,a.avg_sal,a.dept_id
-FROM emp e,emp_dept_sal a
-WHERE e.dept_id=a.dept_id
-AND e.sal>a.avg_sal;
+SELECT e.name, e.sal, a.avg_sal, a.dept_id
+FROM emp e,
+     emp_dept_sal a
+WHERE e.dept_id = a.dept_id
+  AND e.sal > a.avg_sal;
 
-SELECT e.name,e.sal,e.dept_id,a.avg_sal
-FROM emp e,(select avg(sal) avg_sal,dept_id from emp group by dept_id) a
-WHERE e.dept_id=a.dept_id
-AND e.sal>a.avg_sal;
+SELECT e.name, e.sal, e.dept_id, a.avg_sal
+FROM emp e,
+     (select avg(sal) avg_sal, dept_id from emp group by dept_id) a
+WHERE e.dept_id = a.dept_id
+  AND e.sal > a.avg_sal;
 # 查看比所在地区平均工资高的员工信息
 # 第一步查看每个员工的工资以及所在地区
-SELECT e.sal,d.loc
-FROM dept d,emp e
-WHERE e.dept_id=d.id;
+SELECT e.sal, d.loc
+FROM dept d,
+     emp e
+WHERE e.dept_id = d.id;
 # 第二步查看每个地区的平均工资
-SELECT AVG(sal) avg_sal,d.loc,e.dept_id
-FROM emp e,dept d
-WHERE e.dept_id=d.id
+SELECT AVG(sal) avg_sal, d.loc, e.dept_id
+FROM emp e,
+     dept d
+WHERE e.dept_id = d.id
 GROUP BY d.loc;
 # 第三步关联表 emp-dept-第二部的整体结果
-SELECT e.name,e.sal,a.avg_sal,d.loc
-FROM emp e,dept d,(SELECT AVG(sal) avg_sal, dept.loc,dept_id
-            FROM emp,dept
-            WHERE emp.dept_id = dept.id
-            GROUP BY dept.loc) a
-WHERE  e.sal>a.avg_sal
-AND d.loc = a.loc
-AND e.dept_id=d.id;
+SELECT e.name, e.sal, a.avg_sal, d.loc
+FROM emp e,
+     dept d,
+     (SELECT AVG(sal) avg_sal, dept.loc, dept_id
+      FROM emp,
+           dept
+      WHERE emp.dept_id = dept.id
+      GROUP BY dept.loc) a
+WHERE e.sal > a.avg_sal
+  AND d.loc = a.loc
+  AND e.dept_id = d.id;
 # 改写join
-SELECT e.name,e.sal,a.avg_sal,d.loc
+SELECT e.name, e.sal, a.avg_sal, d.loc
 FROM emp e
-join dept d on d.id = e.dept_id
-join (SELECT AVG(sal) avg_sal, dept.loc,dept_id
-FROM emp,dept
-WHERE emp.dept_id = dept.id
-GROUP BY dept.loc) a
-on d.loc = a.loc
-WHERE e.sal>a.avg_sal;
+         join dept d on d.id = e.dept_id
+         join (SELECT AVG(sal) avg_sal, dept.loc, dept_id
+               FROM emp,
+                    dept
+               WHERE emp.dept_id = dept.id
+               GROUP BY dept.loc) a
+              on d.loc = a.loc
+WHERE e.sal > a.avg_sal;
 #每个地区最高工资是谁
 # 第一步 查询每个地区最高工资
-SELECT MAX(sal),d.loc
-FROM emp e,dept d
-WHERE d.id=e.dept_id
+SELECT MAX(sal), d.loc
+FROM emp e,
+     dept d
+WHERE d.id = e.dept_id
 GROUP BY d.loc;
 # 第二步
-SELECT e.name,e.sal,e.dept_id,a.loc,a.max_sal
-FROM emp e ,(SELECT MAX(sal) max_sal,d.loc
-             FROM emp e,dept d
-             WHERE d.id=e.dept_id
-             GROUP BY d.loc) a
-WHERE e.sal=a.max_sal;
+SELECT e.name, e.sal, e.dept_id, a.loc, a.max_sal
+FROM emp e,
+     (SELECT MAX(sal) max_sal, d.loc
+      FROM emp e,
+           dept d
+      WHERE d.id = e.dept_id
+      GROUP BY d.loc) a
+WHERE e.sal = a.max_sal;
 # 自链接
 
 # 查看每个员工的领导是谁？
-SELECT e.name,m.name
-FROM emp e,emp m
-WHERE e.manager=m.id;
+SELECT e.name, m.name
+FROM emp e,
+     emp m
+WHERE e.manager = m.id;
 
-SELECT e.name,m.name
+SELECT e.name, m.name
 FROM emp e
-join emp m
-on e.manager=m.id;
+         join emp m
+              on e.manager = m.id;
 
 #刘备的下属
 SELECT e.name
 FROM emp e
          join emp m
-              on e.manager=m.id
-where m.name='刘备';
+              on e.manager = m.id
+where m.name = '刘备';
 
 
 #谁的工资比孙悟空的领导的工资高
-SELECT e.name ,e.sal
+SELECT e.name, e.sal
 FROM emp e
-join (SELECT m.name,m.sal
-      FROM emp e
-               join emp m
-                    on e.manager=m.id
-      WHERE e.name='孙悟空') m
-WHERE e.sal>m.sal;
-SELECT name,sal
+         join (SELECT m.name, m.sal
+               FROM emp e
+                        join emp m
+                             on e.manager = m.id
+               WHERE e.name = '孙悟空') m
+WHERE e.sal > m.sal;
+SELECT name, sal
 FROM emp
-WHERE sal>(
+WHERE sal > (
     SELECT sal
     FROM emp e
-    JOIN emp m
-    ON e.manager=m.id
-    WHERE e.name='孙悟空'
-    );
+             JOIN emp m
+                  ON e.manager = m.id
+    WHERE e.name = '孙悟空'
+);
+
+# 权限管理
+/*权限管理需要三张主表和两张关系表
+ *三张主表:用户表\角色表\权限表
+ *两张关系表:用户角色关系表 角色权限关系表
+ */
+CREATE DATABASE mydb1 CHARSET = UTF8;
+use mydb1;
+CREATE TABLE user
+(
+    id   int primary key auto_increment,
+    name varchar(20)
+);
+CREATE TABLE role
+(
+    id   int primary key auto_increment,
+    name varchar(20)
+);
+CREATE TABLE module
+(
+    id   int primary key auto_increment,
+    name varchar(20)
+);
+CREATE TABLE u_r
+(
+    uid int,
+    rid int
+);
+CREATE TABLE r_m
+(
+    rid int,
+    mid int
+);
+
+INSERT INTO user
+VALUES (null, '刘德华'),
+       (null, '杨幂');
+INSERT INTO role
+VALUES (null, '男会员'),
+       (null, '女游客'),
+       (null, '女管理员');
+INSERT INTO module
+VALUES (null, '男浏览'),
+       (null, '男评论'),
+       (null, '男发帖'),
+       (null, '女浏览'),
+       (null, '女评论'),
+       (null, '女发帖'),
+       (null, '女删帖');
+
+INSERT INTO u_r
+values (1, 1),
+       (1, 2),
+       (2, 3);
+INSERT INTO r_m
+values (1, 1),
+       (1, 2),
+       (1, 3),
+       (2, 4),
+       (3, 4),
+       (3, 5),
+       (3, 6),
+       (3, 7);
+# 查询刘德华拥有的角色
+SELECT r.name
+FROM user u,
+     role r,
+     u_r
+WHERE u.name = '刘德华'
+  and u.id = uid
+  and r.id = rid;
+
+SELECT r.name
+FROM user u
+         JOIN u_r ON u.id = uid
+         JOIN role r ON r.id = rid
+WHERE u.name = '刘德华';
+# 查询女管理员这个角色对应的用户是谁
+SELECT u.name
+FROM user u,
+     role r,
+     u_r
+WHERE r.name = '女管理员'
+  and u.id = uid
+  and r.id = rid;
+
+SELECT u.name
+FROM user u
+         JOIN u_r ON u.id = uid
+         JOIN role r ON r.id = rid
+WHERE r.name = '女管理员';
+# 查询女管理员拥有那些权限
+SELECT m.name
+FROM role r,
+     module m,
+     r_m
+WHERE r.name = '女管理员'
+  AND r.id = rid
+  AND m.id = mid;
+# 查询刘德华拥有那些权限
+SELECT m.name
+FROM u_r ur,
+     module m,
+     r_m rm,
+     user u
+WHERE u.name='刘德华'
+  AND u.id=ur.rid
+  AND m.id=rm.mid
+  AND rm.rid=ur.rid;
+# 查询有女浏览权限的用户有谁
+SELECT u.name
+FROM u_r ur,
+     module m,
+     r_m rm,
+     user u
+WHERE m.name='女浏览'
+  AND u.id=ur.rid
+  AND m.id=rm.mid
+  AND rm.rid=ur.rid;
+
+
+
